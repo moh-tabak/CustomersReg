@@ -1,0 +1,46 @@
+﻿<Window x:Class="CustomersReg.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CustomersReg"
+        xmlns:views="clr-namespace:CustomersReg.Views"
+        xmlns:viewmodels="clr-namespace:CustomersReg.ViewModels"
+        mc:Ignorable="d"
+        Title="Kunder och Ärende" Height="600" Width="1000" Background="GhostWhite">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" Grid.Row="0" Background="Lavender" />
+        <StackPanel x:Name="SideMenu" Grid.Column="0" Grid.Row="1" Background="Lavender">
+            <Button x:Name="MnuBtnCustomers" Style="{StaticResource MnuBtn}" Click="MnuBtn_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="1" FontFamily="Wingdings 2" FontSize="28" Margin="0 4 10 0"/>
+                    <TextBlock Text="Kunder" Padding="0 5"/>
+                </StackPanel>
+            </Button>
+            <Button x:Name="MnuBtnIssues" Style="{StaticResource MnuBtn}" Click="MnuBtn_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="æ" FontFamily="Webdings" FontSize="28" Margin="0 0 10 0"/>
+                    <TextBlock Text="Ärende" Padding="0 5"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <ContentControl x:Name="MainViewer" Grid.Column="1" Grid.Row="1" Content="{Binding}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type viewmodels:Customers_ViewModel}">
+                    <views:Customers_View DataContext="{Binding}"/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type viewmodels:Issues_ViewModel}">
+                    <views:Issues_View DataContext="{Binding}"/>
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
+    </Grid>
+</Window>

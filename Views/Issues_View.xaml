@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="CustomersReg.Views.Issues_View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CustomersReg.Views" 
+             xmlns:models="clr-namespace:CustomersReg.Models"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="GhostWhite">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+
+        <ListView x:Name="ILV" Grid.Column="0" Background="Transparent" Loaded="ILV_LoadedAsync">
+            <ListView.DataContext>
+                <models:Issue />
+            </ListView.DataContext>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="auto" VerticalAlignment="Center" Width="780">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                            <TextBlock Text="Kundnumr.:"/>
+                            <TextBlock Text="{Binding IdCustomers}"/>
+                        </StackPanel>
+                        <TextBlock Grid.Column="1" Grid.Row="0" FontWeight="DemiBold" Text="{Binding Subject}"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" FontSize="10" Text="{Binding CreationDate}" />
+                        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="10" TextWrapping="Wrap" Text="{Binding Description}" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Border x:Name="BtnSecondaryView" Grid.Column="1" Height="50" Background="Purple" CornerRadius="50" MouseUp="Border_MouseUp">
+            <TextBlock Text="+" Foreground="YellowGreen" FontSize="40" Margin="11 -6" />
+        </Border>
+
+        <ContentControl x:Name="SecondaryView" Grid.Column="2" Width="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
+                    <TextBlock Text="Kundnummer" />
+                    <TextBox x:Name="CustomerIdInput" />
+                </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="1"  Margin="5">
+                    <TextBlock Text="Rubrik" />
+                    <TextBox x:Name="SubjectInput" />
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2" Margin="5">
+                    <TextBlock Text="Beskrivning" />
+                    <TextBox x:Name="DescriptionInput" Height="120" TextWrapping="Wrap" AcceptsReturn="True"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"  Margin="5">
+                    <TextBlock x:Name="ErrorMsgTxt" Text="Ogiltig" TextAlignment="Center" Visibility="Hidden" Foreground="Red"/>
+                </StackPanel>
+                <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Margin="20">
+                    <Button x:Name="SubmitBtn" Content="Spara" Height="40" BorderBrush="Gray" BorderThickness="1" Click="SubmitBtn_ClickAsync"/>
+                </StackPanel>
+            </Grid>
+        </ContentControl>
+    </Grid>
+</UserControl>
