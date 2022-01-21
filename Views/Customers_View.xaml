@@ -25,6 +25,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
@@ -40,6 +41,11 @@
                         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
                             <TextBlock Margin="10 0 0 0"  VerticalAlignment="Center" Text="Mobil: "/>
                             <TextBlock Margin="5 0"  VerticalAlignment="Center" Text="{Binding Mobile}"/>
+                        </StackPanel>
+                        <TextBlock Grid.Column="2" Grid.Row="0" Margin="5 0" VerticalAlignment="Center" Text="{Binding AdressLine}" />
+                        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal">
+                            <TextBlock Margin="5 0"  VerticalAlignment="Center" Text="{Binding PostalCode}"/>
+                            <TextBlock Margin="5 0"  VerticalAlignment="Center" Text="{Binding City}"/>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

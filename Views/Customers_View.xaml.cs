@@ -78,24 +78,24 @@ namespace CustomersReg.Views
             {
                 await service.AddCustomerAsync(new Customer()
                 {
-                    Name = FirstNameInput.Text + LastNameInput.Text,
-                    Email = EmailInput.Text,
+                    Name = $"{FirstNameInput.Text.Trim()} {LastNameInput.Text.Trim()}",
+                    Email = EmailInput.Text.Trim(),
                     Addresses = new List<Address>()
                     {
                         new Address()
                         {
-                            AdressLine=AddressLineInput.Text,
-                            PostalCode=PostalCodeInput.Text,
-                            City=CityInput.Text,
-                            Country=CountryInput.Text
+                            AdressLine=AddressLineInput.Text.Trim(),
+                            PostalCode=PostalCodeInput.Text.Trim(),
+                            City=CityInput.Text.Trim(),
+                            Country=CountryInput.Text.Trim()
                         }
                     },
                     ContactInfos = new List<ContactInfo>()
                     {
                         new ContactInfo()
                         {
-                            Phone=PhoneInput.Text,
-                            Mobile=MobileInput.Text,
+                            Phone=PhoneInput.Text.Trim(),
+                            Mobile=MobileInput.Text.Trim(),
                         }
                     }
                 });

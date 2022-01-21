@@ -10,7 +10,7 @@ namespace CustomersReg.Services
 {
     internal interface ICustomerDataService
     {
-        Task<Customer> GetCustomerByIdAsync(int Id);
+        Customer GetCustomerById(int Id);
         Task<IEnumerable<Customer>> GetAllCustomersAsync();
         Task AddCustomerAsync(Customer customer);
         Address GetAdress(int CustomerId);
@@ -59,9 +59,14 @@ namespace CustomersReg.Services
             return ci;
         }
 
-        public Task<Customer> GetCustomerByIdAsync(int Id)
+        public Customer GetCustomerById(int Id)
         {
-            throw new NotImplementedException();
+            Customer c;
+            using (var cxt = new SqlContext())
+            {
+                c = cxt.Customers.Single(f => f.Id == Id);
+            }
+            return c;
         }
     }
 }
