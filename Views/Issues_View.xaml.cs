@@ -31,8 +31,8 @@ namespace CustomersReg.Views
         private async void SubmitBtn_ClickAsync(object sender, RoutedEventArgs e)
         {
             //if (!ValidateInput()) return;
-            await SubmitNewIssue();
-            await UpdateIssuesList();
+            await SubmitNewIssueAsync();
+            await UpdateIssuesListAsync();
         }
 
 
@@ -51,21 +51,23 @@ namespace CustomersReg.Views
 
         private async void ILV_LoadedAsync(object sender, RoutedEventArgs e)
         {
-            await UpdateIssuesList();
+            await UpdateIssuesListAsync();
         }
 
-        private async Task UpdateIssuesList()
+        private async Task UpdateIssuesListAsync()
         {
             ILV.Items.Clear();
             IIssueDataService dataService = new IssueDataService();
+            IsuueViewerService viewerService;
             var issues = await dataService.GetAllIssuesAsync();
             foreach (var i in issues)
             {
-                ILV.Items.Add(i);
+                viewerService = new IsuueViewerService(i);
+                ILV.Items.Add(viewerService);
             }
         }
 
-        private async Task SubmitNewIssue()
+        private async Task SubmitNewIssueAsync()
         {
             IIssueDataService dataService = new IssueDataService();
             try
