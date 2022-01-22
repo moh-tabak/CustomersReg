@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 using CustomersReg.Services;
 using CustomersReg.Models;
 
@@ -30,7 +31,7 @@ namespace CustomersReg.Views
 
         private async void SubmitBtn_ClickAsync(object sender, RoutedEventArgs e)
         {
-            //if (!ValidateInput()) return;
+            if (!ValidateInput()) return;
             await SubmitNewIssueAsync();
             await UpdateIssuesListAsync();
         }
@@ -84,9 +85,33 @@ namespace CustomersReg.Views
             SecondaryView_Clear();
         }
 
-        private void ValidateInput()
+        private bool ValidateInput()
         {
-            throw new NotImplementedException();
+            string? msg = null;
+            if (CustomerIdInput.Text == "" || !Regex.IsMatch(CustomerIdInput.Text.Trim(), "^[0-9]*$") || int.Parse(CustomerIdInput.Text) == 0)
+            {
+                msg = "*Kundnmmer ";
+            }
+            if (SubjectInput.Text.Length < 2)
+            {
+                msg += "*Rubrik ";
+            }
+            if (DescriptionInput.Text.Length < 10)
+            {
+                msg += "*Beskrivning ";
+            }
+            if (msg != null)
+            {
+                msg = "Dessa fält saknas, eller är ogiltiga: " + msg;
+                ErrorMsgTxt.Text = msg;
+                ErrorMsgTxt.Visibility = Visibility.Visible;
+                return false;
+            }
+            else
+            {
+                ErrorMsgTxt.Visibility = Visibility.Hidden;
+                return true;
+            }
         }
 
         private void SecondaryView_Expand()

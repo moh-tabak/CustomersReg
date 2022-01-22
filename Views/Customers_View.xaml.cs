@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 using CustomersReg.Models;
 using CustomersReg.Services;
 
@@ -49,7 +50,7 @@ namespace CustomersReg.Views
         }
         private async void SubmitBtn_ClickAsync(object sender, RoutedEventArgs e)
         {
-            //if (!ValidateInput()) return;
+            if (!ValidateInput()) return;
             await SubmitNewCustomerAsync();
             await UpdateCustomersListAsync();
         }
@@ -106,7 +107,54 @@ namespace CustomersReg.Views
 
         private bool ValidateInput()
         {
-            throw new NotImplementedException();
+            string? msg = null;
+            if (FirstNameInput.Text.Length < 2)
+            {
+                msg = "*Förnamn ";
+            }
+            if (LastNameInput.Text.Length < 2)
+            {
+                msg += "*Efternamn ";
+            }
+            if (EmailInput.Text.Length < 6 || !EmailInput.Text.Contains('@') || !EmailInput.Text.Contains('.'))
+            {
+                msg += "*E-postadress ";
+            }
+            if (PhoneInput.Text != "")
+            {
+                if (!Regex.IsMatch(PhoneInput.Text, "^.{6,15}") || !Regex.IsMatch(PhoneInput.Text, "^[0+]") || Regex.IsMatch(PhoneInput.Text, @"^.*[A-Za-z_.%&',;=!¤€%'£@""/\\\$?].*$"))
+                {
+                    msg += "*Telefonnummer ";
+                }
+            }
+            if (MobileInput.Text == "" || !Regex.IsMatch(MobileInput.Text, "^.{6,15}") || !Regex.IsMatch(MobileInput.Text, "^[0+]") || Regex.IsMatch(MobileInput.Text, @"^.*[A-Za-z_.%&',;=!¤€%'£@""/\\\$?].*$"))
+            {
+                msg += "*Mobilonnummer ";
+            }
+            if (AddressLineInput.Text.Length < 4)
+            {
+                msg += "*Adress ";
+            }
+            if (PostalCodeInput.Text == "" || !Regex.IsMatch(PostalCodeInput.Text, "^.{5,8}") || Regex.IsMatch(PostalCodeInput.Text, @"^.*[A-Za-z_.%&',;=!+¤€%'£@""/\\\$?].*$"))
+            {
+                msg += "*Postnummer ";
+            }
+            if (CityInput.Text.Length < 2)
+            {
+                msg += "*Ort ";
+            }
+            if (msg != null)
+            {
+                msg = "Dessa fält saknas, eller är ogiltiga: " + msg;
+                ErrorMsgTxt.Text = msg;
+                ErrorMsgTxt.Visibility = Visibility.Visible;
+                return false;
+            }
+            else
+            {
+                ErrorMsgTxt.Visibility = Visibility.Hidden;
+                return true;
+            }
         }
 
         private void SecondaryView_Expand()

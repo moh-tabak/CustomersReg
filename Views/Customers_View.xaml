@@ -72,15 +72,15 @@
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
-                    <TextBlock Text="Förnamn" />
+                    <TextBlock Text="Förnamn *" />
                     <TextBox x:Name="FirstNameInput" />
                 </StackPanel>
                 <StackPanel Grid.Row="0" Grid.Column="1"  Margin="5">
-                    <TextBlock Text="Efternamn" />
+                    <TextBlock Text="Efternamn *" />
                     <TextBox x:Name="LastNameInput" />
                 </StackPanel>
                 <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
-                    <TextBlock Text="E-postadress" />
+                    <TextBlock Text="E-postadress *" />
                     <TextBox x:Name="EmailInput" />
                 </StackPanel>
                 <StackPanel Grid.Row="2" Grid.Column="0"  Margin="5">
@@ -88,19 +88,19 @@
                     <TextBox x:Name="PhoneInput" />
                 </StackPanel>
                 <StackPanel Grid.Row="2" Grid.Column="1"  Margin="5">
-                    <TextBlock Text="Mobilnummer" />
+                    <TextBlock Text="Mobilnummer *" />
                     <TextBox x:Name="MobileInput" />
                 </StackPanel>
                 <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Margin="5">
-                    <TextBlock Text="Adress" />
+                    <TextBlock Text="Adress *" />
                     <TextBox x:Name="AddressLineInput" />
                 </StackPanel>
                 <StackPanel Grid.Row="4" Grid.Column="0"  Margin="5">
-                    <TextBlock Text="Postnummer" />
+                    <TextBlock Text="Postnummer *" />
                     <TextBox x:Name="PostalCodeInput" />
                 </StackPanel>
                 <StackPanel Grid.Row="4" Grid.Column="1"  Margin="5">
-                    <TextBlock Text="Ort" />
+                    <TextBlock Text="Ort *" />
                     <TextBox x:Name="CityInput" />
                 </StackPanel>
                 <StackPanel Grid.Row="5" Grid.Column="0"  Margin="5">
@@ -108,7 +108,7 @@
                     <TextBox x:Name="CountryInput" />
                 </StackPanel>
                 <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"  Margin="5">
-                    <TextBlock x:Name="ErrorMsgTxt" Text="Ogiltig" TextAlignment="Center" Visibility="Hidden" Foreground="Red"/>
+                    <TextBlock x:Name="ErrorMsgTxt" Text="Ogiltig" TextAlignment="Center" Visibility="Hidden" Foreground="Red" TextWrapping="Wrap"/>
                 </StackPanel>
                 <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"  Margin="20">
                     <Button x:Name="SubmitBtn" Content="Lägg Till" Height="40" BorderBrush="Gray" BorderThickness="1" Click="SubmitBtn_ClickAsync"/>

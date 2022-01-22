@@ -17,11 +17,9 @@ namespace CustomersReg.Services
     {
         public async Task AddIssueAsync(Issue issue)
         {
-            using (var context = new SqlContext())
-            {
-                context.Issues.Add(issue);
-                await context.SaveChangesAsync();
-            }
+            using var context = new SqlContext();
+            context.Issues.Add(issue);
+            await context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Issue>> GetAllIssuesAsync()
