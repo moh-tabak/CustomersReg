@@ -42,7 +42,7 @@ namespace CustomersReg.Views
 
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            //Plus/pil Knappen blev tryckt.
+            //Plus/pil Knappen blev tryckt. Kan göras som Command istället
             switch (currentSecondaryView)
             {
                 case SecondaryViewState.Collapsed:
