@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CustomersReg.Views" 
              xmlns:models="clr-namespace:CustomersReg.Models" 
-             xmlns:services="clr-namespace:CustomersReg.Services"
+             xmlns:viewmodels="clr-namespace:CustomersReg.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="GhostWhite" Padding="10">
     <Grid>
@@ -16,28 +16,25 @@
         </Grid.ColumnDefinitions>
 
         <ListView x:Name="CLV" Grid.Column="0" Background="Transparent" Loaded="CLV_LoadedAsync">
-            <ListView.DataContext>
-                <services:CustomerViewerService />
-            </ListView.DataContext>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Height="auto" VerticalAlignment="Center" Width="780">
+                    <Grid Height="auto" VerticalAlignment="Center" Width="800">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="50"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
                             <RowDefinition Height="30"/>
                         </Grid.RowDefinitions>
-                        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-                            <TextBlock Margin="10 0 0 0"  VerticalAlignment="Center" Text="Kundnmr.:"/>
-                            <TextBlock Margin="5 0"  VerticalAlignment="Center" Text="{Binding CustomerId}"/>
-                            <Button x:Name="BtnCopyId" Style="{StaticResource CopyBtn}" Click="BtnCopyId_Click"/>
-                        </StackPanel>
-                        <TextBlock Grid.Column="1" Grid.Row="0" Margin="10 0"  VerticalAlignment="Center" Text="{Binding Name}"/>
-                        <TextBlock Grid.Column="0" Grid.Row="1" Margin="10 0"  VerticalAlignment="Center" Text="{Binding Email}"/>
+                        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Margin="10 0 0 0"   VerticalAlignment="Center" Text="Kundnmr.:"/>
+                            <TextBlock Margin="5 0" FontSize="14" VerticalAlignment="Center" Text="{Binding CustomerId}"/>
+                        </StackPanel >
+                        <TextBlock Grid.Column="1" Grid.Row="0" Margin="10 0" HorizontalAlignment="Left" FontSize="14" VerticalAlignment="Center" Text="{Binding Name}"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Margin="10 0" HorizontalAlignment="Left"  VerticalAlignment="Center" Text="{Binding Email}"/>
                         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
                             <TextBlock Margin="10 0 0 0"  VerticalAlignment="Center" Text="Mobil: "/>
                             <TextBlock Margin="5 0"  VerticalAlignment="Center" Text="{Binding Mobile}"/>
@@ -47,10 +44,14 @@
                             <TextBlock Margin="5 0"  VerticalAlignment="Center" Text="{Binding PostalCode}"/>
                             <TextBlock Margin="5 0"  VerticalAlignment="Center" Text="{Binding City}"/>
                         </StackPanel>
+                        <Button Grid.Column="3" Grid.Row="0" Grid.RowSpan="2" Height="auto" Click="BtnNewIssue_Click">
+                            <TextBlock Text="Nytt Ärende" TextWrapping="Wrap" TextAlignment="Center"/>
+                        </Button>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
         <Border x:Name="BtnSecondaryView" Grid.Column="1" Height="50" Background="Purple" CornerRadius="50" MouseUp="Border_MouseUp">
             <TextBlock Text="+" Foreground="YellowGreen" FontSize="40" Margin="11 -6" />
         </Border>

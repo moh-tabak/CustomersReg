@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using CustomersReg.Services;
 using CustomersReg.Models;
+using CustomersReg.ViewModels;
 
 namespace CustomersReg.Views
 {
@@ -24,9 +25,17 @@ namespace CustomersReg.Views
     public partial class Issues_View : UserControl
     {
         private SecondaryViewState currentSecondaryView = SecondaryViewState.Collapsed;
+
         public Issues_View()
         {
             InitializeComponent();
+        }
+
+        public Issues_View(int CustomerId)
+        {
+            InitializeComponent();
+            SecondaryView_Expand();
+            CustomerIdInput.Text = Convert.ToString(CustomerId);
         }
 
         private async void SubmitBtn_ClickAsync(object sender, RoutedEventArgs e)
@@ -39,6 +48,7 @@ namespace CustomersReg.Views
 
         private void Border_MouseUp(object sender, RoutedEventArgs e)
         {
+            //Plus/pil Knappen blev tryckt.
             switch (currentSecondaryView)
             {
                 case SecondaryViewState.Collapsed:
@@ -52,6 +62,14 @@ namespace CustomersReg.Views
 
         private async void ILV_LoadedAsync(object sender, RoutedEventArgs e)
         {
+            //Om denna vyn öppnades med "Nytt Ärende" knappen, visa SecondaryView.
+            if (TempTxt.Text == "Yes")
+            {
+                SecondaryView_Expand();
+                CustomerIdInput.Text = Convert.ToString(Customers_View.SelectedCustomerID);
+                Customers_View.SelectedCustomerID = 0;
+                SubjectInput.Focus();
+            }
             await UpdateIssuesListAsync();
         }
 
@@ -59,12 +77,12 @@ namespace CustomersReg.Views
         {
             ILV.Items.Clear();
             IIssueDataService dataService = new IssueDataService();
-            IsuueViewerService viewerService;
+            Issues_ViewModel viewModel;
             var issues = await dataService.GetAllIssuesAsync();
             foreach (var i in issues)
             {
-                viewerService = new IsuueViewerService(i);
-                ILV.Items.Add(viewerService);
+                viewModel = new Issues_ViewModel(i);
+                ILV.Items.Add(viewModel);
             }
         }
 

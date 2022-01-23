@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using CustomersReg.Models;
+using CustomersReg.ViewModels;
 using CustomersReg.Services;
 
 namespace CustomersReg.Views
@@ -23,6 +24,14 @@ namespace CustomersReg.Views
     /// </summary>
     public partial class Customers_View : UserControl
     {
+        public static readonly RoutedEvent ButtonNewIssueEvent = EventManager.RegisterRoutedEvent("BtnNewIssue_clicked", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(Customers_View));
+
+        public event RoutedEventHandler NewIssue_Clicked
+        {
+            add { AddHandler(ButtonNewIssueEvent, value); }
+            remove { RemoveHandler(ButtonNewIssueEvent, value); }
+        }
+        public static int SelectedCustomerID { get; set; }
 
         private SecondaryViewState currentSecondaryView = SecondaryViewState.Collapsed;
         public Customers_View()
@@ -30,8 +39,10 @@ namespace CustomersReg.Views
             InitializeComponent();
         }
 
+
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            //Plus/pil Knappen blev tryckt.
             switch (currentSecondaryView)
             {
                 case SecondaryViewState.Collapsed:
@@ -42,12 +53,7 @@ namespace CustomersReg.Views
                     break;
             }
         }
-        private void BtnCopyId_Click(object sender, RoutedEventArgs e)
-        {
-            var btn = (Button)sender;
-            var s = (CustomerViewerService)btn.DataContext;
-            Clipboard.SetText(Convert.ToString(s.CustomerId));
-        }
+
         private async void SubmitBtn_ClickAsync(object sender, RoutedEventArgs e)
         {
             if (!ValidateInput()) return;
@@ -63,14 +69,25 @@ namespace CustomersReg.Views
         {
             CLV.Items.Clear();
             ICustomerDataService dataservice = new CustomerDataService();
-            CustomerViewerService viewerService;
+            Customers_ViewModel viewerService;
             var customers = await dataservice.GetAllCustomersAsync();
             foreach (Customer c in customers)
             {
-                viewerService = new CustomerViewerService(c);
+                viewerService = new Customers_ViewModel(c);
                 _ = CLV.Items.Add(viewerService);
             }
         }
+        private void BtnNewIssue_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = (Button)sender;
+            var data = (Customers_ViewModel)btn.DataContext;
+            if (data.CustomerId != null)
+            {
+                SelectedCustomerID = (int)data.CustomerId;
+                RaiseEvent(new RoutedEventArgs(ButtonNewIssueEvent));
+            }
+        }
+
         private async Task SubmitNewCustomerAsync()
         {
             ICustomerDataService service = new CustomerDataService();
@@ -186,6 +203,7 @@ namespace CustomersReg.Views
             CityInput.Text = string.Empty;
             CountryInput.Text = string.Empty;
         }
+
 
 
     }
