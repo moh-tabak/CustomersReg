@@ -7,7 +7,7 @@
         xmlns:views="clr-namespace:CustomersReg.Views"
         xmlns:viewmodels="clr-namespace:CustomersReg.ViewModels"
         mc:Ignorable="d"
-        Title="Kunder och Ärende" Height="600" Width="1000" Background="GhostWhite">
+        Title="Kunder och Ärende" Height="600" Width="1200" Background="GhostWhite">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -35,10 +35,10 @@
         <ContentControl x:Name="MainViewer" Grid.Column="1" Grid.Row="1" Content="{Binding}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type viewmodels:Customers_ViewModel}">
-                    <views:Customers_View DataContext="{Binding}"/>
+                    <views:Customers_View DataContext="{Binding}" NewIssue_Clicked="Customers_View_NewIssue"/>
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type viewmodels:Issues_ViewModel}">
-                    <views:Issues_View DataContext="{Binding}"/>
+                    <views:Issues_View  DataContext="{Binding}" />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

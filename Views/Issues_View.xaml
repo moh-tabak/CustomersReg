@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CustomersReg.Views" 
              xmlns:models="clr-namespace:CustomersReg.Models"
-             xmlns:services="clr-namespace:CustomersReg.Services"
+             xmlns:viewmodels="clr-namespace:CustomersReg.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="GhostWhite">
     <Grid>
@@ -16,9 +16,6 @@
         </Grid.ColumnDefinitions>
 
         <ListView x:Name="ILV" Grid.Column="0" Background="Transparent" Loaded="ILV_LoadedAsync">
-            <ListView.DataContext>
-                <services:IsuueViewerService />
-            </ListView.DataContext>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Height="auto" VerticalAlignment="Center" Width="780" Margin="5">
@@ -73,6 +70,7 @@
                 </StackPanel>
                 <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Margin="20">
                     <Button x:Name="SubmitBtn" Content="Spara" Height="40" BorderBrush="Gray" BorderThickness="1" Click="SubmitBtn_ClickAsync"/>
+                    <TextBlock x:Name="TempTxt" Visibility="Collapsed" Text="{Binding OpenSecodaryOnLoading, Mode=OneTime}"/>
                 </StackPanel>
             </Grid>
         </ContentControl>
