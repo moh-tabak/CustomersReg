@@ -29,7 +29,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="DemiBold" Text="{Binding CustomerName}"/>
                         <TextBlock Grid.Column="1" Grid.Row="0" FontWeight="DemiBold" Text="{Binding Subject}"/>
-                        <TextBlock Grid.Column="0" Grid.Row="1" FontSize="10" Text="{Binding CreationDate ,StringFormat=Skapat: {0:yyyy-MM-dd }" />
+                        <TextBlock Grid.Column="0" Grid.Row="1" FontSize="10" Text="{Binding CreationDate ,StringFormat=Skapat: {0:yyyy-MM-dd }}" />
                         <TextBlock Grid.Column="1" Grid.Row="1" FontSize="10" TextWrapping="Wrap" Text="{Binding Description}" />
                     </Grid>
                 </DataTemplate>
